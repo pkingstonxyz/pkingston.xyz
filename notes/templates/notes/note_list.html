@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Patrick's Notes - pkingston.xyz</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				font-family: 'Fira Code', monospace;
+				background-color: #111111;
+				color: white;
+			}
+			main {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				padding: 10px;
+			}
+			main div {
+				/*min-height: 30vh;
+				max-height: 60vh;
+				min-width: 20vw;*/
+				max-width: 40vw;
+				flex-basis: 30vw;
+				flex-grow: 1;
+				flex-shrink: 1;
+				padding: 10px;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<header></header>
+		<nav></nav>
+		<main>
+			{% for note in note_list %}
+				<div style="background-color: {{ note.color }}">
+					<h2>{{ note.title }}</h2>
+					<p style="color: {{ note.secondary_color }}">{{ note.date|date }}</p>
+					<hr/>
+					<p>{{ note.body }}</p>
+				</div>
+			{% endfor %}
+		</main>
+		<footer></footer>
+	</body>
+</html>

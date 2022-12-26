@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Patrick's Website - pkingston.xyz</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				font-family: 'Fira Code', monospace;
+				background-image: url("{% static 'staticstuff/background.jpg' %}");
+				background-color: black;
+				background-repeat: no-repeat;
+				background-size: auto 100%;
+				color: white;
+			}
+			.container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+			}
+			table {
+				font-size: 3em;
+			}
+			tr {
+				overflow: hidden;
+				height: 50%;
+			}
+			.websiteurl {
+				font-weight: 900;
+			}
+			.patrick {
+				font-weight: 900;
+			}
+			.about {
+				color: red;
+			}
+			.showcase {
+				color: magenta;
+			}
+			.notes {
+				color: cyan;
+			}
+			.cv {
+				color: orange;
+			}
+			a {
+				color: inherit;
+				text-decoration: inherit;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<table class="table">
+			<tr class="websiteurl">
+				<td>p</td>
+				<td>k</td>
+				<td>i</td>
+				<td>n</td>
+				<td>g</td>
+				<td class="showcase"><a href="{% url 'showcase' %}">s</a></td>
+				<td>t</td>
+				<td>o</td>
+				<td class="notes"><a href="{% url 'notes' %}">n</a></td>
+				<td>.</td>
+				<td>x</td>
+				<td>y</td>
+				<td>z</td>
+			</tr>
+			<tr>
+				<td class="patrick about"><a href="{% url 'about' %}">a</a></td>
+				<td class="about"><a href="{% url 'about' %}">b</a></td>
+				<td class="about"><a href="{% url 'about' %}">o</a></td>
+				<td class="about"><a href="{% url 'about' %}">u</a></td>
+				<td class="about"><a href="{% url 'about' %}">t</a></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">h</a></td>
+				<td></td>
+				<td></td>
+				<td class="notes"><a href="{% url 'notes' %}">o</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="patrick">t</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">o</a></td>
+				<td></td>
+				<td></td>
+				<td class="notes"><a href="{% url 'notes' %}">t</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="patrick">r</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">w</a></td>
+				<td></td>
+				<td></td>
+				<td class="notes"><a href="{% url 'notes' %}">e</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="patrick">i</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">c</a></td>
+				<td></td>
+				<td></td>
+				<td class="notes"><a href="{% url 'notes' %}">s</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="patrick cv"><a href="{% url 'cv' %}">c</a></td>
+				<td class="cv"><a href="{% url 'cv' %}">v</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">a</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="patrick">k</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">s</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="showcase"><a href="{% url 'showcase' %}">e</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		</div>
+	</body>
+</html>

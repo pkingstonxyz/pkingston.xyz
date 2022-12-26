@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Add note (secrete page) - pkingston.xyz</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				font-family: 'Fira Code', monospace;
+				background-color: #111111;
+				color: white;
+			}
+			main {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				padding: 10px;
+			}
+			main div {
+				min-height: 30vh;
+				max-height: 60vh;
+				min-width: 20vw;
+				max-width: 40vw;
+				padding: 10px;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<header></header>
+		<nav></nav>
+		<main>
+			<form method="POST">
+			  {% csrf_token %}
+			  <label for="title">Title:</label>
+			  <input type="text" id="title" name="title" maxlength="100" required>
+			  <br>
+			  <label for="body">Body:</label>
+			  <textarea id="body" name="body"></textarea>
+			  <br>
+				<label for="secret">Secret:</label>
+				<input id="secret" name="secret" required>
+			  <button type="submit">Submit</button>
+			</form>
+		</main>
+		<footer></footer>
+	</body>
+</html>
