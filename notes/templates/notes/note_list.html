@@ -32,8 +32,9 @@
 		</style>
 	</head>
 	<body>
-		<header></header>
-		<nav></nav>
+		<nav>
+			<h1><a href={% url 'index' %}>Patrick Kingston</a></h1>
+		</nav>
 		<main>
 			{% for note in note_list %}
 				<div style="background-color: {{ note.color }}">
@@ -44,6 +45,5 @@
 				</div>
 			{% endfor %}
 		</main>
-		<footer></footer>
 	</body>
 </html>
