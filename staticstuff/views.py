@@ -6,11 +6,11 @@ def index(request):
 
 def about(request):
     return render(request,
-                  'staticstuff/index.html')
+                  'staticstuff/about.html')
 
 def showcase(request):
     return render(request,
-                  'staticstuff/index.html')
+                  'staticstuff/showcase.html')
 
 def cv(request):
     return render(request,

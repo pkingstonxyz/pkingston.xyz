@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>About Patrick- pkingston.xyz</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				font-family: 'Fira Code', monospace;
+				background-color: black;
+				background-repeat: no-repeat;
+				background-size: auto 100%;
+				color: white;
+			}
+			.container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				flex-direction: column;
+			}
+			a {
+				color: inherit;
+				text-decoration: inherit;
+			}
+			h1 {
+				text-decoration: underline;
+			}
+			img {
+				max-width: 50vmin;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="container">
+			<h1><a href="{% url 'index' %}">Patrick Kingston</a></h1>
+			<img src={% static 'staticstuff/portrait.jpg' %}>
+			<h2>Hi! My name is Patrick</h2>
+			<p>I am a:</p>
+			<ul>
+				<li>Programmer</li>
+				<li>Classicist</li>
+				<li>Orthodox Christian</li>
+				<li>Musician and music lover (Bass Guitar, some violin)</li>
+				<li>Wine lover</li>
+				<li>Chess player</li>
+				<li>Traveler</li>
+			</ul>
+			<h2>Primary Skills</h2>
+			<ul>
+				<li>Technological, Logical, and Quantitative thinking</li>
+				<li>Backend web development</li>
+				<li>Natural Language Processing (NLP)</li>
+				<li>Linux</li>
+				<li>Python - Django, NLTK, Tensorflow</li>
+				<li>Dart - Flutter</li>
+				<li>Functional Programming - Clojure, Lambda Calculus</li>
+			</ul>
+		</main>
+	</body>
+</html>
