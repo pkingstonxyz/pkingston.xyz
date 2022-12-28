@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Patrick's Project Showcase - pkingston.xyz</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				font-family: 'Fira Code', monospace;
+				background-color: black;
+				background-repeat: no-repeat;
+				background-size: auto 100%;
+				color: white;
+			}
+			.container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+			a {
+				color: inherit;
+				text-decoration: underline;
+			}
+			img {
+				max-width: 50vmin;
+			}
+			nav {
+				margin: 10px;
+			}
+			main {
+				padding-top: 10vh;
+				padding-bottom: 10vh;
+			}
+			h1 {
+				font-size: 32pt;
+			}
+			h2 {
+				font-size: 26pt;
+			}
+			h3 {
+				font-size: 22pt;
+			}
+			main div {
+				background-color: #111111;
+				border-style: none none none solid;
+				border-width: 5px;
+				border-color: #333333;
+				padding: 20px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				margin-right: 5vw;
+				margin-left: 5vw;
+			}
+			p a {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<h1><a href="{% url 'index' %}">Patrick Kingston</a></h1>
+		</nav>
+		<main class="container">
+			<h2>My project showcase</h2>
+			<div> <!--bowdoin.wine-->
+				<h3>bowdoin.wine</h3>
+				<p><a href="https://bowdoin.wine">bowdoin.wine</a> is the home of <a href="https://bowdoin.edu">Bowdoin College's</a> wine club. Due to the club being about wine, it is not officially chartered. As such, I needed a place to communicate with club members, host surveys, and more.</p>
+				<p><u>Features:</u></p>
+				<ul>
+					<li>Showcase of the wine tastings we've done.</li>
+					<li>Showcase of the wines we have drank.</li>
+					<li>Searchable database of members' tasting notes on said wines. (anonymized if club members are logged in or not)</li>
+					<li>A survey hosting mechanism for when I need input from club members</li>
+				</ul>
+				<p><u>Technologies:</u></p>
+				<ul>
+					<li>Django - I have found Django to be very enjoyable to work with and as this is an application that needs auth+CRUD, I found it to be a very nice fit.</li>
+					<li>Python - By virtue of django.</li>
+					<li>Postgres - In dev, I am using SQLite, but in prod I have deployed a postgres database.</li>
+					<li>Gunicorn - As the web server to host bowdoin.wine</li>
+					<li>Nginx - As the web server that "faces" the outside world on my VPS. I've chosen file based sockets to communicate between Nginx and Gunicorn.</li>
+					<li>Debian Linux - As the base of my hosting stack.</li>
+				</ul>
+			</div>
+			<div> <!--Dactyl 30-->
+				<h3>Dactyl 30</h3>
+				<img src="{% static 'staticstuff/dactyl30.jpg' %}"\>
+				<p>The Dactyl30 is my modification of the Dactyl manuform keyboard. It is an ultra-minimalist, ergonomic keyboard that is optimized to the curvature of my hands.</p>
+				<p><u>Technologies</u></p>
+				<ul>
+					<li>Python - I modified some python scripts that generate an OpenSCAD model and made further modifications to the housing with Blender.</li>
+					<li>C - Due to the limited key layout, I had to use embedded C to create a custom key layout that involved multiple key layers and chording.</li>
+					<li>Blender - To modify the generated CAD files.</li>
+					<li>atmega32u4 - The main cpu chip I used to drive the keyboard.</li>
+				</ul>
+			</div>
+		</main>
+	</body>
+</html>

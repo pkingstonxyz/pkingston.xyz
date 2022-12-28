@@ -14,7 +14,7 @@
 				background-image: url("{% static 'staticstuff/background.jpg' %}");
 				background-color: black;
 				background-repeat: no-repeat;
-				background-size: auto 100%;
+				background-size: cover;
 				color: white;
 			}
 			.container {
@@ -40,10 +40,10 @@
 				color: red;
 			}
 			.showcase {
-				color: magenta;
+				color: cyan;
 			}
 			.notes {
-				color: cyan;
+				color: magenta;
 			}
 			.cv {
 				color: orange;
@@ -133,8 +133,8 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td class="patrick cv"><a href="{% url 'cv' %}">c</a></td>
-				<td class="cv"><a href="{% url 'cv' %}">v</a></td>
+				<td class="patrick cv"><a href="{% static 'staticstuff/PatrickKingstonResume.pdf' %}">c</a></td>
+				<td class="cv"><a href="{% static 'staticstuff/PatrickKingstonResume.pdf' %}">v</a></td>
 				<td></td>
 				<td></td>
 				<td></td>

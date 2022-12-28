@@ -33,11 +33,29 @@
 			img {
 				max-width: 50vmin;
 			}
+			.pad {
+				height: 10vh;
+			}
+			nav {
+				margin: 10px;
+			}
+			h1 {
+				font-size: 32pt;
+			}
+			h2 {
+				font-size: 26pt;
+			}
+			h3 {
+				font-size: 22pt;
+			}
 		</style>
 	</head>
 	<body>
-		<main class="container">
+		<nav>
 			<h1><a href="{% url 'index' %}">Patrick Kingston</a></h1>
+		</nav>
+		<main class="container">
+			<div class="pad"></div>
 			<img src={% static 'staticstuff/portrait.jpg' %}>
 			<h2>Hi! My name is Patrick</h2>
 			<p>I am a:</p>
@@ -60,6 +78,7 @@
 				<li>Dart - Flutter</li>
 				<li>Functional Programming - Clojure, Lambda Calculus</li>
 			</ul>
+			<div class="pad"></div>
 		</main>
 	</body>
 </html>
