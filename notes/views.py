@@ -30,3 +30,4 @@ class AddView(TemplateView):
         note.body = request.POST['body']
         note.save()
         return redirect('notes')
+

@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.http.response import FileResponse
-from django.shortcuts import loader
 
 def index(request):
     return render(request,
