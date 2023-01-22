@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Patrick's Blog - pkingston.xyz</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			font-family: 'Fira Code', monospace;
+			background-color: #111111;
+			color: white;
+			margin: auto;
+		}
+		a {
+			text-decoration: none;
+			color: DeepSkyBlue;
+		}
+		a:visited {
+			color: DodgerBlue;
+		}
+		header {
+			border: 2px solid white;
+			margin: 10px;
+			padding: 10px;
+		}
+		header p {
+			color: #AAAAAA;
+		}
+		header p.source {
+			font-size: 90%;
+		}
+		li {
+			padding-left: 25px;
+			list-style-type: none;
+		}
+		.post {
+			background-color: #222222;
+			max-width: 90%;
+			margin: auto;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+<header>
+	<h1>Opining</h1>
+	<p>ō-ˈpīn | opined; opining</p>
+	<ul>
+		<li>
+			<p>Intransitive verb - To express opinions</p>
+			<p class="source"><i>Merriam Webster</i></p>
+		</li>
+		<li>
+			<p>Transitive verb - To state as an opinion</p>
+			<p class="source"><i>Merriam Webster</i></p>
+		</li>
+		<li>
+			<p>The page where I express my opinions in long form writing</p>
+			<p class="source"><i>Patrick Kingston</i></p>
+		</li>
+	</ul>
+</header>
+<nav>
+	<h1><a href="{% url 'index' %}">&#60;&#124; Home</a></h1>
+</nav>
+{% for post in object_list %}
+<div class="post">
+	<h2><a href="{% url 'blog-post' post.slug %}">{{ post.title }}</a></h2>
+	<p>{{ post.created_on|date }}</p>
+	<p>{{ post.tagline }}</p>
+</div>
+{% endfor %}
+<div class="pagination">
+    <span class="page-links">
+        {% if page_obj.has_previous %}
+				<a href="{% url 'blog' %}?page={{ page_obj.previous_page_number }}">&#60;&#124;</a>
+        {% endif %}
+            <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+        {% if page_obj.has_next %}
+					<a href="{% url 'blog' %}?page={{ page_obj.next_page_number }}">&#124;&#62;</a>
+        {% endif %}
+    </span>
+</div>
+</body>
+</html>
