@@ -1,0 +1,166 @@
+:root {
+	/*--dark-tile: #000000;
+	--light-tile: #1f1f1f;
+	--text-color: #ffffff;*/
+	--dark-tile: #f1f1f1;
+	--light-tile: #ffffff;
+	--text-color: #000000;
+	--king: #4388e0;
+	--queen: #C63E6A;
+	--rook: #642282;
+	--bishop: #D3493D;
+	--knight: #387F73;
+	--pawn: #FAEC59;
+}
+
+main {
+	scroll-snap-type: y mandatory;
+	overflow-y: scroll;
+	height: 100vh;
+	color: var(--text-color);
+}
+body {
+	background-color: var(--dark-tile);
+	opacity: 1;
+	background-image:  repeating-linear-gradient(45deg, var(--light-tile) 25%, transparent 25%, transparent 75%, var(--light-tile) 75%, var(--light-tile)), repeating-linear-gradient(45deg, var(--light-tile) 25%, var(--dark-tile) 25%, var(--dark-tile) 75%, var(--light-tile) 75%, var(--light-tile));
+	background-position: 0 0, 50px 50px;
+	background-size: 100px 100px;
+}
+p {
+	font-family: 'Lustria', serif;
+}
+a {
+	text-decoration: none;
+	color: var(--text-color);
+}
+.snap {
+	scroll-snap-align: start;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.code {
+	font-family: 'Fira Code', monospace;
+}
+.greek {
+	font-family: 'Noto Serif Display', serif;
+}
+.emoji {
+	font-family: 'Noto Color Emoji', sans-serif;
+}
+@media screen and (max-width: 600px) { /*mobile*/
+	.hiim {
+		font-size: 64px;
+		line-height: 32px;
+	}
+	.large {
+		font-size: 64px;
+	}
+	.normal {
+		font-size: 32px;
+	}
+	.small {
+		font-size: 16px;
+	}
+	.patrick {
+		font-size: 100px;
+	}
+}
+
+@media screen and (min-width: 601px) { /*Desktop*/
+	.hiim {
+		font-size: 128px;
+		line-height: 64px;
+	}
+	.large {
+		font-size: 128px;
+	}
+	.normal {
+		font-size: 64px;
+	}
+	.small {
+		font-size: 32px;
+	}
+	.patrick {
+		font-size: 256px;
+	}
+}
+
+/* interactivity */
+.reveal {
+	position: relative;
+}
+.reveal span {
+	position: absolute;
+	z-index: 2;
+	opacity: 0;
+	transition: all 0.5s ease-in-out;
+	transform: translate(0%, -150%) rotate(0deg);
+}
+.reveal p {
+	transition: all 0.5s ease-in-out;
+	color: var(--text-color);
+}
+
+#swe p {
+	font-family: 'Fira Code', monospace;
+}
+
+#chr:hover p {
+	color: var(--king);
+}
+#swe:hover p {
+	color: var(--queen);
+}
+#tra:hover p {
+	color: var(--rook);
+}
+#cla:hover p {
+	color: var(--bishop);
+}
+#mus:hover p {
+	color: var(--knight);
+}
+
+.reveal:hover span {
+	opacity: 1;
+}
+.reveal:hover span:nth-child(2) {
+	transform: translate(-100%, -200%) rotate(15deg);
+}
+.reveal:hover span:nth-child(3) {
+	transform: translate(700%, -50%) rotate(-15deg);
+}
+.reveal:hover span:nth-child(4) {
+	transform: translate(0%, -50%) rotate(0deg);
+}
+.reveal:hover span:nth-child(5) {
+	transform: translate(750%, -220%) rotate(0deg);
+}
+
+
+.backgroundreveal {
+	position: relative;
+}
+.backgroundreveal a {
+	z-index: 5;
+}
+
+.backgroundreveal .background {
+	width: 100%;
+	height: 100%;
+	transform: scale(0, 1);
+	transform-origin: left;
+	transition: all 0.5s ease-in-out;
+	background-color: var(--pawn);
+	position: absolute;
+	top: 0;
+	z-index: -1;
+}
+
+.backgroundreveal:hover .background {
+	transform: scale(1, 1);
+}
