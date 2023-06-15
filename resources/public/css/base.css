@@ -1,8 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&family=Lustria&family=Noto+Color+Emoji&family=Noto+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&family=Lato:wght@400&family=Lustria&family=Noto+Color+Emoji&family=Noto+Serif+Display&display=swap');
 
+:root {
+	--dark-tile: #f1f1f1;
+	--light-tile: #ffffff;
+	--text-color: #000000;
+	--king: #4388e0;
+	--queen: #C63E6A;
+	--rook: #642282;
+	--bishop: #D3493D;
+	--knight: #387F73;
+	--pawn: #FAEC59;
+}
 
 * {
   margin: 0;
 	padding: 0;
 }
+.code {
+	font-family: 'Fira Code', monospace;
+}
+.greek {
+	font-family: 'Noto Serif Display', serif;
+}
+.emoji {
+	font-family: 'Noto Color Emoji', sans-serif;
+}
 
+body {
+	background-color: var(--dark-tile);
+	opacity: 1;
+	background-image:  repeating-linear-gradient(45deg, var(--light-tile) 25%, transparent 25%, transparent 75%, var(--light-tile) 75%, var(--light-tile)), repeating-linear-gradient(45deg, var(--light-tile) 25%, var(--dark-tile) 25%, var(--dark-tile) 75%, var(--light-tile) 75%, var(--light-tile));
+	background-position: 0 0, 50px 50px;
+	background-size: 100px 100px;
+}
+main {
+	flex: 1;
+}
+h1 {
+	font-weight: normal;
+}
+h2 {
+	font-weight: normal;
+}
+h3 {
+	font-family: 'Lato', sans-serif;
+}
+p {
+	font-family: 'Lato', sans-serif;
+}
+@media screen and (max-width: 600px) { /*mobile*/

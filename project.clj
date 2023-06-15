@@ -6,8 +6,12 @@
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [metosin/reitit "0.7.0-alpha4"]
                  [hiccup "1.0.5"]
-                 [http-kit "2.7.0-RC1"]]
+                 [http-kit "2.7.0-RC1"]
+                 [datalevin "0.8.16"]
+                 [markdown-clj "1.11.4"]]
   :main ^:skip-aot pkingstonxyz.core
   :target-path "target/%s"
+  :jvm-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+             "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"]
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})

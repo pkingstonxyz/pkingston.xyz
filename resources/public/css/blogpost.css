@@ -1,0 +1,95 @@
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+main {
+	flex: 1;
+}
+@media screen and (max-width: 600px) { /*Desktop*/
+	header {
+		font-size: 64px;
+	}
+ .title {
+		font-size: 32px;
+	}
+	h1 {
+		font-size: 28px;
+	}
+	h2 {
+		font-size: 24px;
+	}
+	h3 {
+		font-size: 20px;
+	}
+	p {
+		font-size: 16px;
+	}
+	main {
+		width: 90%;
+		margin: auto;
+	}
+	.tagchip {
+		font-size: 20px;
+	}
+}
+@media screen and (min-width: 601px) { /*Desktop*/
+	header {
+		font-size: 96px;
+	}
+ .title {
+		font-size: 64px;
+	}
+	h1 {
+		font-size: 48px;
+	}
+	h2 {
+		font-size: 32px
+	}
+	h3 {
+		font-size: 24px;
+	}
+	p {
+		font-size: 20px;
+	}
+	main {
+		width: 70%;
+		margin: auto;
+	}
+	.tagchip {
+		font-size: 24px;
+	}
+}
+
+article {
+	background-color: #FFFB;
+	padding: 5px;
+}
+hr {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.title {
+	color: var(--king);
+}
+h1 {
+	color: var(--queen);
+}
+h2 {
+	color: var(--rook);
+}
+h3 {
+	color: var(--bishop);
+}
+
+.gradient {
+	display: inline-block;
+	background-clip: text;
+	background-image: linear-gradient(to right, var(--king), var(--king) 20%, var(--queen) 20%, var(--queen) 40%, var(--rook) 40%, var(--rook) 60%, var(--bishop) 60%, var(--bishop) 80%, var(--knight) 80%, var(--knight) 100%);
+	transition: color .5s ease-in-out;
+	color: var(--text-color);
+}
+.gradient:hover {
+	color: transparent;
+}

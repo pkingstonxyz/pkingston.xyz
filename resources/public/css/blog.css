@@ -1,0 +1,140 @@
+@media screen and (max-width: 600px) { /*Desktop*/
+	h1 {
+		font-size: 64px;
+	}
+	h2 {
+		font-size: 32px;
+	}
+	h3 {
+		font-size: 24px;
+	}
+	p {
+		font-size: 16px;
+	}
+	main {
+		width: 90%;
+		margin: auto;
+	}
+	.tagchip {
+		font-size: 20px;
+	}
+}
+@media screen and (min-width: 601px) { /*Desktop*/
+	h1 {
+		font-size: 96px;
+	}
+	h2 {
+		font-size: 64px;
+	}
+	h3 {
+		font-size: 32px
+	}
+	p {
+		font-size: 20px;
+	}
+	main {
+		width: 70%;
+		margin: auto;
+	}
+	.tagchip {
+		font-size: 24px;
+	}
+}
+
+.reset {
+	cursor: pointer;
+	border-radius: 500px;
+	color: var(--text-color);
+	border: 0px;
+	background-color: var(--queen);
+	padding: 5px;
+}
+#tagchips h3 {
+	margin-top: 10px;
+}
+#tagchips form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	margin-top: 10px;
+}
+
+.tagchip {
+	user-select: none;
+	margin: 10px;
+	font-family: 'Lato', sans-serif;
+}
+input {
+	display: none;
+}
+input + label {
+	border: 0px solid var(--text-color);
+	border-radius: 500px;
+	color: var(--text-color);
+	background-color: var(--pawn);
+	padding: 5px;
+}
+input:checked + label {
+	background-color: var(--knight);
+	color: var(--light-tile);
+}
+
+#filter-indicator {
+	visibility: hidden;
+	text-align: center;
+}
+.htmx-request {
+	visibility: visible !important;
+}
+@keyframes spinning {
+	from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spinner {
+	display: inline-block;
+	animation: spinning 1s linear infinite;
+}
+#postlist {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	opacity: 1;
+  transition: opacity .1s ease-in-out;
+	flex: 1;
+}
+#postlist.htmx-swapping {
+	opacity: 0;
+}
+.postcard {
+	width: 200px;
+	min-height: 200px;
+	margin: 10px;
+	border-radius: 10px;
+	border: 3px solid var(--king);
+	background-color: var(--light-tile);
+	transition: all ease-in;
+}
+a {
+	text-decoration: none;
+	color: var(--text-color);
+}
+
+.gradient {
+	display: inline-block;
+	background-clip: text;
+	background-image: linear-gradient(to right, var(--king), var(--king) 20%, var(--queen) 20%, var(--queen) 40%, var(--rook) 40%, var(--rook) 60%, var(--bishop) 60%, var(--bishop) 80%, var(--knight) 80%, var(--knight) 100%);
+	transition: color .5s ease-in-out;
+	color: var(--text-color);
+}
+.gradient:hover {
+	color: transparent;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+main {
+	flex: 1;
+}

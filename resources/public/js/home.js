@@ -16,7 +16,7 @@ class Piece {
 		this.id = Math.floor(Math.random() * 100000);
 		this.element = document.createElement("img");
 		this.element.id = this.id;
-		this.element.src = `imgs/${this.type}.png`;
+		this.element.src = `/imgs/${this.type}.png`;
 		this.element.style.position = "absolute";
 		this.element.style.zIndex = -100;
 		this.element.style.transition = "all 1s ease-in-out";
@@ -148,7 +148,9 @@ render();
 
 function moveAll() {
 	pieces.forEach((piece) => {
-		 piece.move()
+		if (Math.random() < 0.67){
+		 piece.move();
+		}
 	});
 	render();
 }

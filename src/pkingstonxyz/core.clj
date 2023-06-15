@@ -6,23 +6,37 @@
             [reitit.ring.coercion :as rrc]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.ring.middleware.parameters :as parameters]
-            [pkingstonxyz.pages.homep :as homep])
+            [pkingstonxyz.pages.homep :as homep]
+            [pkingstonxyz.pages.blogp :as blogp])
   (:gen-class))
 
 (def app
   (ring/ring-handler
     (ring/router
       [
-       ["/api"
-       ["/math" {:get {:parameters {:query {:x int?, :y int?}}
-                       :responses  {200 {:body {:total int?}}}
-                       :handler    (fn [{{{:keys [x y]} :query} :parameters}]
-                                     {:status 200
-                                      :body   {:total (+ x y)}})}}]]
+       ;["/api"
+       ;["/math" {:get {:parameters {:query {:x int?, :y int?}}
+       ;                :responses  {200 {:body {:total int?}}}
+       ;                :handler    (fn [{{{:keys [x y]} :query} :parameters}]
+       ;                              {:status 200
+       ;                               :body   {:total (+ x y)}})}}]]
        ["/" {:get {:handler (fn [_] 
                               {:status 200 
                                :content-type "text/html" 
-                               :body homep/homep})}}]]
+                               :body homep/homep})}}]
+       ["/blog" 
+        [""
+         {:get {:handler (fn [{{tags "tag"} :query-params}]
+                           {:status 200
+                            :body (blogp/blogp tags)})}
+          :post {:handler (fn [{{tags "tag"} :form-params}]
+                            {:status 200
+                             :body (blogp/filteredpostlist tags)})}}]
+        ["/:slug" {:get {:parameters {:path {:slug string?}}
+                          :handler (fn [{{slug :slug} :path-params}] 
+                                     {:status 200 
+                                      :content-type "text/html" 
+                                      :body (blogp/blogpost slug)})}}]]]
       ;; router data affecting all routes
       {:data {:coercion   reitit.coercion.spec/coercion
               :muuntaja   m/instance

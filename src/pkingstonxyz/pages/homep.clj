@@ -25,7 +25,7 @@
           [:span.code.small "λ"]
           [:span.code.small "<>"]
           [:span.code.small "()"]]]
-        [:a {:href "/blog?tag=classicist"}
+        [:a {:href "/blog?tag=classics"}
          [:div#cla.reveal
           [:p.normal "Classicist"]
           [:span.greek.small "α"]
@@ -58,7 +58,7 @@
         [:p.large "See my"]
         [:div.backgroundreveal
          [:div.background]
-         [:a {:href "/resume.pdf"} [:p.normal "Resume"]]]
+         [:a {:href "/PatrickKingstonResume.pdf"} [:p.normal "Resume"]]]
         [:div.backgroundreveal
          [:div.background]
          [:a {:href "/blog"} [:p.normal "Blog"]]]
