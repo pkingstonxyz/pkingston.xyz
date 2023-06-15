@@ -35,7 +35,7 @@
   [:a {:href (str "/blog/" (:slug post))}
    [:article.postcard
     [:h3 (str (:title post))]
-    [:p (str "Posted: " (:date post))]]])
+    [:p (str "Posted: " (.format (java.text.SimpleDateFormat. "dd/MM/yyyy") (:date post)))]]])
 
 (apply db/get-blog-headings-by-tag (flatten ["travel"]))
 (defn _filteredpostlist [tags]

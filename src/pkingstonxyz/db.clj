@@ -139,3 +139,42 @@ poggies."
            [?e :public true]
            [?e :type "blog"]
            ] (dlv/db blogposts) slug)))
+
+(defn yyyy-mm-dd [date]
+  (let [s (java.text.SimpleDateFormat. "yyyy-MM-dd")]
+    (.parse s date)))
+(def schema {:slug    {:db/unique :db.unique/identity
+                       :db/valueType :db.type/string}
+             :title   {:db/valueType :db.type/string}
+             :date    {:db/valueType :db.type/instant}
+             :content {:db/valueType :db.type/string}
+             :tags    {:db/cardinality :db.cardinality/many
+                       :db/valueType :db.type/string}
+             :type    {:db/valueType :db.type/string}
+             :public  {:db/valueType :db.type/boolean}})
+(comment
+  (require '[next.jdbc :as jdbc])
+  (def db {:dbtype "sqlite" :dbname "db.sqlite3"})
+  (def ds (jdbc/get-datasource db))
+  (def posts (jdbc/execute! ds ["SELECT * FROM blog_post"]))
+  (dlv/transact! 
+   blogposts 
+   (vec
+    (for [post posts]
+      {:slug (:blog_post/slug post)
+       :title (:blog_post/title post)
+       :date (yyyy-mm-dd (:blog_post/created_on post))
+       :content (:blog_post/content post)
+       :type "blog"
+       :tags (let [title (:blog_post/title post)]
+               (cond 
+                 (= title "My Project Queue") ["project" "code" "music"]
+                 (= title "The prod commit") ["code"]
+                 (= title "100x100") ["manga"]
+                 (= title "Topic List") ["meta"]
+                 (= title "Barbershop") ["music"]
+                 (= title "The making of kunismos") ["project" "code"]
+                 (= title "A personal philokalia") ["christianity"]
+                 (= title "Learning Plans") ["project" "learning"]
+                 ))
+       :public true}))))
