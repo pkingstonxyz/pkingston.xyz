@@ -1,17 +1,18 @@
 (ns pkingstonxyz.db
-  (:require [datalevin.core :as dlv]))
+  (:require [datalevin.core :as dlv]
+            [clojure.string :as sops]))
 
-(def schema {:slug    {:db/unique :db.unique/identity
-                       :db/valueType :db.type/string}
-             :title   {:db/valueType :db.type/string}
-             :date    {:db/valueType :db.type/instant}
-             :content {:db/valueType :db.type/string}
+(def schema {:slug    {:db/unique      :db.unique/identity
+                       :db/valueType   :db.type/string}
+             :title   {:db/valueType   :db.type/string}
+             :date    {:db/valueType   :db.type/instant}
+             :content {:db/valueType   :db.type/string}
              :tags    {:db/cardinality :db.cardinality/many
-                       :db/valueType :db.type/string}
-             :type    {:db/valueType :db.type/string}
-             :public  {:db/valueType :db.type/boolean}})
+                       :db/valueType   :db.type/string}
+             :type    {:db/valueType   :db.type/string}
+             :public  {:db/valueType   :db.type/boolean}})
 
-(def blogposts (dlv/get-conn "data/" schema))
+(def blogposts (dlv/get-conn "data/blog" schema))
 
 (comment
   (dlv/transact!
@@ -90,6 +91,16 @@ poggies."
                   [?e :date ?date]
                   [?e :type "blog"]
                   [?e :public true]] (dlv/db blogposts)))
+
+(defn get-all-blog-headings-admin
+  []
+  (dlv/q '[:find ?title ?slug ?date
+           :keys title slug date
+           :where [?e :title ?title]
+                  [?e :slug ?slug]
+                  [?e :date ?date]
+                  [?e :type "blog"]] (dlv/db blogposts)))
+
 (defn get-blog-headings-by-tag
   ([tag1] (dlv/q '[:find ?title ?slug ?date
                    :keys title slug date
@@ -128,8 +139,8 @@ poggies."
 
 (defn get-blog-post-by-slug [slug]
   (first
-  (dlv/q '[:find ?title ?date ?content
-           :keys title date content
+  (dlv/q '[:find ?title ?date ?content 
+           :keys title date content 
            :in $ ?slug
            :where 
            [?e :slug ?slug]
@@ -137,6 +148,20 @@ poggies."
            [?e :date ?date]
            [?e :content ?content]
            [?e :public true]
+           [?e :type "blog"]
+           ] (dlv/db blogposts) slug)))
+
+(defn get-blog-post-by-slug-admin [slug]
+  (first
+  (dlv/q '[:find ?title ?date ?content ?public
+           :keys title date content public
+           :in $ ?slug
+           :where 
+           [?e :slug ?slug]
+           [?e :title ?title]
+           [?e :date ?date]
+           [?e :content ?content]
+           [?e :public ?public]
            [?e :type "blog"]
            ] (dlv/db blogposts) slug)))
 
@@ -178,3 +203,50 @@ poggies."
                  (= title "Learning Plans") ["project" "learning"]
                  ))
        :public true}))))
+(defn edit-blog-post! 
+  [slug title content public]
+  (let [prev (first (flatten (dlv/q '[:find (dlv/pull ?e [*])
+                                      :in $ ?slug
+                                      :where [?e :slug ?slug]] (dlv/db blogposts) slug)))
+        nextp (assoc prev :title title 
+                     :content content 
+                     :public (= public "on"))]
+    (dlv/transact!
+     blogposts
+     [nextp])))
+
+(defn delete-blog-post!
+  [slug]
+  (let [post-id (first (first (dlv/q '[:find ?e
+                                       :in $ ?slug
+                                       :where [?e :slug ?slug]] 
+                                     (dlv/db blogposts)
+                                     slug)))]
+
+    (if (nil? post-id)
+      false
+      (do
+        (dlv/transact! 
+         blogposts
+         [[:db/retractEntity post-id]])
+        (empty? (dlv/q '[:find ?e :in $ ?slug :where [?e :slug ?slug]] (dlv/db blogposts) slug))))))
+
+
+(defn make-blog-post!
+  [titlesub content public]
+  (let [splits (sops/split titlesub #"\$")
+        title (first splits)
+        slug (-> title (sops/lower-case) (sops/replace #" " "-"))]
+    (println title)
+    (dlv/transact!
+     blogposts
+     [{:slug slug
+       :title title
+       :date (new java.util.Date)
+       :content content
+       :type "blog"
+       :tags (vec (take 3 (filter identity (rest splits))))
+       :public (= public "on")}])
+    (< 0 (count (first (dlv/q '[:find ?e
+                             :in $ ?slug
+                             :where [?e :slug ?slug]] (dlv/db blogposts) slug))))))

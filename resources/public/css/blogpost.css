@@ -9,9 +9,6 @@ main {
 p {
 	margin-top: .5em;
 }
-ol {
-	font-family: 'Lato', sans-serif;
-}
 li {
 	list-style-position: inside;
 }
@@ -40,6 +37,11 @@ li {
 	}
 	ol {
 		font-size: 16px;
+		font-family: 'Lato', sans-serif;
+	}
+	ul {
+		font-size: 16px;
+		font-family: 'Lato', sans-serif;
 	}
 	.tagchip {
 		font-size: 20px;
@@ -70,6 +72,11 @@ li {
 	}
 	ol {
 		font-size: 20px;
+		font-family: 'Lato', sans-serif;
+	}
+	ul {
+		font-size: 20px;
+		font-family: 'Lato', sans-serif;
 	}
 	.tagchip {
 		font-size: 24px;
