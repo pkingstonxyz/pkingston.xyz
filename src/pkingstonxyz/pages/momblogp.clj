@@ -97,16 +97,22 @@
           [:div {:hx-get "/momblog?page=1"
                  :hx-trigger "revealed"
                  :hx-swap "outerHTML"
-                 :style "height: 100px; background-color: black;"}]]])
-      (h/html
-        (let [posts (nth posts (Integer/parseInt page) nil)]
+                 :style "height: 100px;"}]]])
+        (let [pagenum (Integer/parseInt page)
+              posts (nth posts pagenum nil)]
           (if (nil? posts)
-            [:div]
+            (h/html
+            [:div])
+            (h/html
             (for [post posts]
               [:article
                [:img {:src (:img post)}]
                [:p.title (:title post)]
-               [:p.date (str (:date post))]]))))))})
+               [:p.date (str (:date post))]])
+             [:div {:hx-get (str "/momblog?page=" (inc pagenum))
+                    :hx-trigger "revealed"
+                    :hx-swap "outerHTML"
+                    :style "height: 100px;"}])))))})
 
 (defn adminp
   [_]
