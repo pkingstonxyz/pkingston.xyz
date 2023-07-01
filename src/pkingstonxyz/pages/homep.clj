@@ -64,10 +64,10 @@
          [:a {:href "/blog"} [:p.normal "Blog"]]]
         [:div.backgroundreveal
          [:div.background]
-         [:a {:href "/blog?tag=project"} [:p.normal "Projects"]]]
+         [:a {:href "mailto:patrick@pkingston.xyz"} [:p.normal "Contact"]]]
         [:div.backgroundreveal
          [:div.background]
-         [:a {:href "mailto:patrick@pkingston.xyz"} [:p.normal "Contact"]]]
+         [:a {:href "/momblog"} [:p.normal "Image blog"]]]
         ;[:p.normal "youtube"] ;Coming soon...
         ]]
       [:section.snap]]
