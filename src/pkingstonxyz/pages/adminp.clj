@@ -19,7 +19,7 @@
    [:head [:meta {:charset "utf-8"}]]
    [:body
     [:a {:href "/admin/blog"} [:p "Edit Blog Posts"]]
-    [:a {:href "/admin/patstagram"} [:p "Edit patstagram posts"]]]))
+    [:a {:href "/admin/momblog"} [:p "Edit momblog posts"]]]))
 
 (defn blogp
   []
