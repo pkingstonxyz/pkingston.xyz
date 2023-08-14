@@ -93,7 +93,8 @@
      ;Code support
      [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css"}]
      [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"}]
-     [:script "hljs.hilightAll();"]]
+     [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/clojure.min.js"}]
+     [:script "hljs.highlightAll();"]]
     [:body
      [:header "Patrick's " [:span.gradient "Blog"]]
      [:main
