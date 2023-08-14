@@ -89,7 +89,11 @@
      [:link {:rel "stylesheet" :href "/css/base.css"}]
      [:link {:rel "stylesheet" :href "/css/blogpost.css"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
-     [:meta {:charset "utf-8"}]]
+     [:meta {:charset "utf-8"}]
+     ;Code support
+     [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css"}]
+     [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"}]
+     [:script "hljs.hilightAll();"]]
     [:body
      [:header "Patrick's " [:span.gradient "Blog"]]
      [:main
