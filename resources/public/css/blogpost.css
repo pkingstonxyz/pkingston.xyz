@@ -31,6 +31,9 @@ li {
 	p {
 		font-size: 16px;
 	}
+	code {
+		font-size: 16px;
+	}
 	main {
 		width: 90%;
 		margin: auto;
@@ -64,6 +67,9 @@ li {
 		font-size: 24px;
 	}
 	p {
+		font-size: 20px;
+	}
+	code {
 		font-size: 20px;
 	}
 	main {
