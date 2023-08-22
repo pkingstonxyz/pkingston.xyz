@@ -12,10 +12,17 @@
                  [markdown-clj "1.11.4"]
                  [com.github.seancorfield/next.jdbc "1.3.874"]
                  [org.xerial/sqlite-jdbc  "3.39.2.1"]
-                 [buddy "2.0.0"]]
+                 [buddy "2.0.0"]
+                 ;Figwheel clojurescript lmao
+                 ]
   :main ^:skip-aot pkingstonxyz.core
   :target-path "target/%s"
   :jvm-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED"
              "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"]
-  :profiles {:uberjar {:aot :all
+  :profiles {:dev
+             {:dependencies 
+              [
+               [org.clojure/clojurescript "1.11.60"]
+               [com.bhauman/figwheel-main "0.2.18"]]}
+             :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})

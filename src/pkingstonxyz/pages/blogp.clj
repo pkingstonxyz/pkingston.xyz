@@ -43,11 +43,11 @@
     [:section#postlist
      (cond 
        (empty? taglist)
-       (let [posts (sort-by :date (db/get-all-blog-headings))]
+       (let [posts (reverse (sort-by :date (db/get-all-blog-headings)))]
          (for [post posts]
            (postcard post)))
        (>= 3 (count taglist))
-       (let [posts (sort-by :date (apply db/get-blog-headings-by-tag taglist))]
+       (let [posts (reverse (sort-by :date (apply db/get-blog-headings-by-tag taglist)))]
          (if (empty? posts)
            [:p "No posts found!"]
            (for [post posts]

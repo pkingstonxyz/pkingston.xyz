@@ -14,6 +14,7 @@
             [pkingstonxyz.pages.blogp :as blogp]
             [pkingstonxyz.pages.adminp :as adminp]
             [pkingstonxyz.pages.momblogp :as momblogp]
+            [pkingstonxyz.pages.wheelp :as wheelp]
             [pkingstonxyz.auth :as auth])
   (:gen-class))
 
@@ -82,7 +83,9 @@
               :get {:handler momblogp/adminp}
               :post {:parameters {:multipart [:map [:file reitit.ring.malli/temp-file-part]]}
                      :handler momblogp/post!}
-              :delete {:handler momblogp/delete!}}]]]]
+              :delete {:handler momblogp/delete!}}]]
+        ["/wheel"
+         ["" {:get {:handler wheelp/wheelp}}]]]]
       ;; router data affecting all routes
       {:data {:coercion (reitit.coercion.malli/create
                           {:error-keys #{#_:type :coercion :in :schema :value :errors :humanized #_:transformed}
