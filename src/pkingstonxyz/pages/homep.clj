@@ -12,51 +12,60 @@
     [:body
      [:main
       [:section.snap
-       [:span
+       [:div
         [:p.hiim "Hi! I'm"]
         [:p.patrick "Patrick"]]]
       [:section.snap
-       [:span
+       [:div
         [:p.large "I am a:"]
-        [:a {:href "/blog?tag=code"}
-         [:div#swe.reveal
-          [:p.normal "&lt;Coder/&gt;"]
-          [:span.code.small "⌨️ "]
-          [:span.code.small "λ"]
-          [:span.code.small "<>"]
-          [:span.code.small "()"]]]
-        [:a {:href "/blog?tag=classics"}
-         [:div#cla.reveal
-          [:p.normal "Classicist"]
-          [:span.greek.small "α"]
-          [:span.greek.small "📙"]
-          [:span.greek.small "ω"]
-          [:span.greek.small "🏛️"]]]
-        [:a {:href "/blog?tag=christianity"}
-         [:div#chr.reveal 
-          [:p.normal "Christian"]
-          [:span.emoji.small "☦️"]
-          [:span.emoji.small "🕯️"]
-          [:span.emoji.small "📿"]
-          [:span.emoji.small "🔔"]]]
-        [:a {:href "/blog?tag=music"}
-         [:div#mus.reveal 
-          [:p.normal "Musician"]
-          [:span.emoji.small "💻"]
-          [:span.emoji.small "🎼"]
-          [:span.emoji.small "🎧"]
-          [:span.emoji.small "📀"]]]
-        [:a {:href "/blog?tag=travel"}
-         [:div#tra.reveal 
-          [:p.normal "Traveler"]
-          [:span.emoji.small "🗺️"]
-          [:span.emoji.small "&#x1F1EC;&#x1F1F7;"]
-          [:span.emoji.small "🧭"]
-          [:span.emoji.small "🚃"]]]]]
+        [:div.container
+         [:div
+          [:a {:href "/blog?tag=code"}
+           [:div#swe.reveal
+            [:p.normal "&lt;Coder/&gt;"]
+            [:span.code.small "λ"]
+            [:span.code.small ""]
+            [:span.code.small "github:pkingstonxyz"]
+            [:span.code.small "()"]]]
+          [:a {:href "/blog?tag=classics"}
+           [:div#cla.reveal
+            [:p.normal "Classicist"]
+            [:span.greek.small "α"]
+            [:span.greek.small "📙"]
+            [:span.greek.small "ω"]
+            [:span.greek.small "🏛️"]]]
+          [:a {:href "/blog?tag=christianity"}
+           [:div#chr.reveal 
+            [:p.normal "Christian"]
+            [:span.emoji.small "☦️"]
+            [:span.emoji.small "🕯️"]
+            [:span.emoji.small "📿"]
+            [:span.emoji.small "🔔"]]]
+          [:a {:href "/blog?tag=music"}
+           [:div#mus.reveal 
+            [:p.normal "Musician"]
+            [:span.emoji.small "💻"]
+            [:span.emoji.small "🎼"]
+            [:span.emoji.small "🎧"]
+            [:span.emoji.small "📀"]]]
+          [:a {:href "/blog?tag=travel"}
+           [:div#tra.reveal 
+            [:p.normal "Traveler"]
+            [:span.emoji.small "🗺️"]
+            [:span.emoji.small "&#x1F1EC;&#x1F1F7;"]
+            [:span.emoji.small "🧭"]
+            [:span.emoji.small "🚃"]]]]
+         [:div {:style "margin-left: 10px; width: 20em;"}
+          [:p {:style "font-size: 24px;"}
+           "Hey welcome to my site. I'm a dev on the Ansible team and you can see my code on github by clicking " 
+           [:u [:a {:href "https://github.com/pkingstonxyz"
+               :rel "me"}
+            "here. "]]
+           "I also blog on stuff I'm interested in, so feel free to check out some of my categories over there <-"]]]]]
       [:section.snap
-       [:span
+       [:div
         [:p.large "See my"]
-        [:div.backgroundreveal
+        #_[:div.backgroundreveal
          [:div.background]
          [:a {:href "/PatrickKingstonResume.pdf"} [:p.normal "Resume"]]]
         [:div.backgroundreveal
@@ -64,11 +73,11 @@
          [:a {:href "/blog"} [:p.normal "Blog"]]]
         [:div.backgroundreveal
          [:div.background]
-         [:a {:href "mailto:patrick@pkingston.xyz"} [:p.normal "Contact"]]]
+         [:a {:href "mailto:patrick@pkingston.xyz"
+              :rel "me"} [:p.normal "Contact"]]]
         [:div.backgroundreveal
          [:div.background]
          [:a {:href "/momblog"} [:p.normal "Image blog"]]]
-        ;[:p.normal "youtube"] ;Coming soon...
         ]]
       [:section.snap]]
      [:script {:src "/js/home.js"}]]))

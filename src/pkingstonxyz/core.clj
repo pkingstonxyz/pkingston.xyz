@@ -51,8 +51,8 @@
         ["" {:get {:handler (fn [_]
                               {:status 200
                                :content-type "text/html"
-                               :body adminp/loginp};login form
-                              )}
+                               :body adminp/loginp})};login form
+                              
              :post {:handler auth/login}}]
         ["/pages" {:middleware [auth/authen-middleware auth/author-middleware]
                    :get {:handler (fn [req]
@@ -75,8 +75,8 @@
                     :delete {:parameters {:form-params {:delete string?}}
                              :handler adminp/delete-post!}
 
-                    :post {:handler adminp/make-post!}
-                    }]]
+                    :post {:handler adminp/make-post!}}]]
+                    
         ["/momblog"
          ["" {:middleware [auth/authen-middleware auth/author-middleware]
               :get {:handler momblogp/adminp}
@@ -111,3 +111,8 @@
   [& args]
   (println "Runnit")
   (hk/run-server app {:port 8080}))
+
+(comment
+  (def server 
+    (-main))
+  (server))
