@@ -22,7 +22,7 @@ class Piece {
         this.element.src = `/imgs/${this.type}.png`;
         this.element.style.position = "absolute";
         this.element.style.zIndex = -100;
-        this.element.style.transition = "all 1s ease-in-out";
+        this.element.style.transition = "all 1.75s ease-in-out";
         document.body.appendChild(this.element);
     }
     move() {
@@ -175,7 +175,7 @@ document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         clearInterval(moveIntervalId); // Pause when tab is hidden
     } else {
-        moveIntervalId = setInterval(moveAll, 1000); // Resume when tab is visible
+        moveIntervalId = setInterval(moveAll, 1750); // Resume when tab is visible
     }
 });
 
@@ -183,4 +183,4 @@ document.addEventListener("visibilitychange", () => {
 genPieces();
 render();
 // Start the interval when the page loads
-moveIntervalId = setInterval(moveAll, 1000);
+moveIntervalId = setInterval(moveAll, 1750);
