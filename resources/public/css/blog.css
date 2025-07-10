@@ -72,7 +72,7 @@ input + label {
 	border: 0px solid var(--text-color);
 	border-radius: 500px;
 	color: var(--text-color);
-	background-color: var(--rook);
+	background-color: var(--king);
 	padding: 5px;
 }
 input:checked + label {
