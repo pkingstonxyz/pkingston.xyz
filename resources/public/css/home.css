@@ -132,7 +132,7 @@ a {
 	transform: scale(0, 1);
 	transform-origin: left;
 	transition: all 0.5s ease-in-out;
-	background-color: var(--pawn);
+	background-color: var(--knight);
 	position: absolute;
 	top: 0;
 	z-index: -1;

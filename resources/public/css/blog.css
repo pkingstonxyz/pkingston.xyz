@@ -63,6 +63,7 @@
 	user-select: none;
 	margin: 10px;
 	font-family: 'Lato', sans-serif;
+  color: #000000;
 }
 input {
 	display: none;
@@ -106,7 +107,7 @@ input:checked + label {
 	opacity: 0;
 }
 .postcard {
-	width: 200px;
+	min-width: 200px;
 	min-height: 200px;
 	margin: 10px;
 	border-radius: 10px;
