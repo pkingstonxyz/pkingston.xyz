@@ -4,12 +4,21 @@
 	--dark-tile: #f1f1f1;
 	--light-tile: #ffffff;
 	--text-color: #000000;
+  --backdrop: #000B;
 	--king: #4388e0;
 	--queen: #C63E6A;
 	--rook: #642282;
 	--bishop: #D3493D;
 	--knight: #387F73;
 	--pawn: #FAEC59;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+	--dark-tile: #1f1f1f;
+	--light-tile: #000000;
+	--text-color: #eeeeee;
+  }
 }
 
 * {
@@ -28,6 +37,7 @@
 
 body {
 	background-color: var(--dark-tile);
+  color: var(--text-color);
 	opacity: 1;
 	background-image:  repeating-linear-gradient(45deg, var(--light-tile) 25%, transparent 25%, transparent 75%, var(--light-tile) 75%, var(--light-tile)), repeating-linear-gradient(45deg, var(--light-tile) 25%, var(--dark-tile) 25%, var(--dark-tile) 75%, var(--light-tile) 75%, var(--light-tile));
 	background-position: 0 0, 50px 50px;

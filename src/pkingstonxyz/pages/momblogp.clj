@@ -87,7 +87,7 @@
                    :stroke "none" :fill "white"}]
            [:rect {:x "0" :y "29" :width "70" :height "12"
                    :stroke "none" :fill "white"}]]
-          [:h1 "Patrick"]]
+          [:h1 [:a {:href "/"} "Patrick"]]]
          [:main
           (for [post (first posts)]
             [:article
@@ -121,6 +121,18 @@
    :body 
    (hp/html5
      [:head
+      [:link
+ {:rel "icon",
+  :type "image/png", 
+  :href "/favicon-96x96.png", 
+  :sizes "96x96"}]
+[:link {:rel "icon", :type "image/svg+xml", :href "/favicon.svg"}]
+[:link {:rel "shortcut icon", :href "/favicon.ico"}]
+[:link
+ {:rel "apple-touch-icon",
+  :sizes "180x180", 
+  :href "/apple-touch-icon.png"}]
+[:link {:rel "manifest", :href "/site.webmanifest"}]
       [:meta {:charset "utf-8"}]
       [:script {:src "https://unpkg.com/htmx.org@1.9.2"}]]
      [:body

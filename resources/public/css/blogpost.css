@@ -12,7 +12,11 @@ p {
 li {
 	list-style-position: inside;
 }
-@media screen and (max-width: 600px) { /*Desktop*/
+header a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+@media screen and (max-width: 600px) { /*mobile*/
 	header {
 		font-size: 64px;
 	}
@@ -90,7 +94,7 @@ li {
 }
 
 article {
-	background-color: #FFFB;
+	background-color: var(--backdrop);
 	padding: 5px;
 }
 hr {

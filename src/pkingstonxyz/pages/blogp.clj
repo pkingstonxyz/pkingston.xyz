@@ -71,7 +71,7 @@
     [:body
      [:main
       [:header.header
-       [:h1 "Patrick's " [:span.gradient "Blog"]]]
+       [:h1 [:a {:href "/"} "Patrick's "] [:span.gradient "Blog"]]]
       [:hr]
       (tagchips tags)
       [:hr]
@@ -86,6 +86,18 @@
   (h/html5 
     [:head
      [:title title]
+     [:link
+ {:rel "icon",
+  :type "image/png", 
+  :href "/favicon-96x96.png", 
+  :sizes "96x96"}]
+[:link {:rel "icon", :type "image/svg+xml", :href "/favicon.svg"}]
+[:link {:rel "shortcut icon", :href "/favicon.ico"}]
+[:link
+ {:rel "apple-touch-icon",
+  :sizes "180x180", 
+  :href "/apple-touch-icon.png"}]
+[:link {:rel "manifest", :href "/site.webmanifest"}]
      [:link {:rel "stylesheet" :href "/css/base.css"}]
      [:link {:rel "stylesheet" :href "/css/blogpost.css"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
@@ -96,7 +108,8 @@
      [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/clojure.min.js"}]
      [:script "hljs.highlightAll();"]]
     [:body
-     [:header "Patrick's " [:span.gradient "Blog"]]
+     [:header [:a {:href "/"}
+               "Patrick's "] [:span.gradient "Blog"]]
      [:main
       [:article
        [:h1.title title]
