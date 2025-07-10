@@ -4,7 +4,7 @@ let pieceTypes = ["king", "queen", "rook", "bishop", "knight", "pawn"];
 let nudge = { "king": 13, "queen": 13, "rook": 12, "bishop": 16, "knight": 12, "pawn": 14 };
 let squash = { "king": 0, "queen": 0, "rook": 5, "bishop": 10, "knight": 11, "pawn": 15 };
 var windowWidth = window.innerWidth;
-var windowHeight = window.innerHeight;
+var windowHeight = document.documentElement.scrollHeight;
 var cellsWide = Math.floor(windowWidth / cellSize);
 var cellsHigh = Math.floor(windowHeight / cellSize);
 
@@ -154,7 +154,7 @@ function render() {
 
 addEventListener("resize", () => {
     windowWidth = window.innerWidth;
-    windowHeight = window.innerHeight;
+    windowHeight = document.documentElement.scrollHeight;
     cellsWide = Math.floor(windowWidth / cellSize); // Recalculate cellsWide on resize
     cellsHigh = Math.floor(windowHeight / cellSize); // Recalculate cellsHigh on resize
     genPieces();
