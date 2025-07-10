@@ -26,7 +26,7 @@
       [:section.snap
        [:div
         [:p.hiim "Hi! I'm"]
-        [:p.patrick "Patrick"]]]
+        [:p.patrick [:a.h-card {:href "https://pkingston.xyz"} "Patrick"]]]]
       [:section.snap
        [:div
         [:p.large "I am a:"]
