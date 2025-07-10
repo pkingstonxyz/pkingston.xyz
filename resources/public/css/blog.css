@@ -63,7 +63,7 @@
 	user-select: none;
 	margin: 10px;
 	font-family: 'Lato', sans-serif;
-  color: #000000;
+  color: var(--text-color);
 }
 input {
 	display: none;
@@ -72,7 +72,7 @@ input + label {
 	border: 0px solid var(--text-color);
 	border-radius: 500px;
 	color: var(--text-color);
-	background-color: var(--pawn);
+	background-color: var(--rook);
 	padding: 5px;
 }
 input:checked + label {
@@ -108,11 +108,12 @@ input:checked + label {
 }
 .postcard {
 	min-width: 200px;
+	max-width: 250px;
 	min-height: 200px;
 	margin: 10px;
-	border-radius: 10px;
+  padding: 5px;
 	border: 3px solid var(--king);
-	background-color: var(--light-tile);
+	background-color: var(--backdrop);
 	transition: all ease-in;
 }
 a {
