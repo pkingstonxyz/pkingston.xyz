@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [metosin/reitit "0.7.0-alpha5"]
                  [javax.servlet/servlet-api "2.5"]
-                 [hiccup "1.0.5"]
+                 [hiccup "2.0.0"]
                  [http-kit "2.7.0-RC1"]
                  [datalevin "0.8.16"]
                  [markdown-clj "1.11.4"]

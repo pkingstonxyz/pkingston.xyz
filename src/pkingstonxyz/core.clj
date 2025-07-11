@@ -14,6 +14,7 @@
             [pkingstonxyz.pages.blogp :as blogp]
             [pkingstonxyz.pages.adminp :as adminp]
             [pkingstonxyz.pages.momblogp :as momblogp]
+            [pkingstonxyz.rssfeed :as rssfeed]
             [pkingstonxyz.auth :as auth])
   (:gen-class))
 
@@ -47,6 +48,9 @@
        ["/momblog"
         [""
          {:get {:handler momblogp/momblogp}}]]
+       ["/rss"
+        [""
+         {:get {:handler rssfeed/rssfeed}}]]
        ["/admin"
         ["" {:get {:handler (fn [_]
                               {:status 200
