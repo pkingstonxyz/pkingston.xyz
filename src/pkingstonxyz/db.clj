@@ -262,12 +262,12 @@ poggies."
     (or (some-> val str) "")))
 
 (defn set-reading! [s]
-  (let [existing-id (first
+  (let [existing-id 
                      (dlv/q '[:find ?e .
                               :where [?e :singleton-id :reading]]
-                            (dlv/db blogposts)))]
+                            (dlv/db blogposts))]
     (if existing-id
-      ;; update existing
+      ;; update it
       (dlv/transact! blogposts
                      [{:db/id existing-id
                        :reading-value s}])
@@ -275,4 +275,3 @@ poggies."
       (dlv/transact! blogposts
                      [{:singleton-id :reading
                        :reading-value s}]))))
-

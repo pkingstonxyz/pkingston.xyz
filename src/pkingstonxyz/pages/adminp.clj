@@ -6,7 +6,8 @@
 
 (def loginp 
   (h/html5
-   [:head [:meta {:charset "utf-8"}]]
+   [:head [:meta {:charset "utf-8"}]
+          [:script {:src "https://unpkg.com/htmx.org@1.9.2"}]]
    [:body
     [:form {:method "post"}
      [:input {:type "text" :name "username"}]
@@ -15,10 +16,15 @@
 
 (def adminp
   (h/html5
-   [:head [:meta {:charset "utf-8"}]]
+   [:head [:meta {:charset "utf-8"}]
+    [:script {:src "https://unpkg.com/htmx.org@1.9.2"}]]
    [:body
     [:a {:href "/admin/blog"} [:p "Edit Blog Posts"]]
-    [:a {:href "/admin/momblog"} [:p "Edit momblog posts"]]]))
+    [:a {:href "/admin/momblog"} [:p "Edit momblog posts"]]
+    [:div {:hx-get "/admin/reading"
+           :hx-trigger "load"
+           :hx-swap "outerHTML"}
+     "Loading..."]]))
 
 (defn blogp
   []
@@ -110,3 +116,39 @@
       {:status 404
        :content-type "text/html"
        :body "FAILED TO CREATE"})))
+
+#_(defn readingp
+  [_]
+   (let [r (db/get-reading)]
+    (hc/html
+     [:form {:hx-post "/admin/reading"
+             :hx-trigger "submit"
+             :hx-swap "outerHTML"}
+      [:label "Current Reading: "]
+      [:input {:type "text" :name "reading" :value r}]
+      [:input {:type "submit"}]])))
+(defn readingp
+  [_]
+  (let [r (db/get-reading)]
+    {:status 200 ; Add status
+     :headers {"Content-Type" "text/html"} ; Add content type header
+     :body (hc/html ; Wrap the Hiccup output in :body
+            [:form {:hx-post "/admin/reading"
+                    :hx-trigger "submit"
+                    :hx-swap "outerHTML"}
+             [:label "Current Reading: "]
+             [:input {:type "text" :name "reading" :value r}]
+             [:input {:type "submit"}]])}))
+
+
+#_(defn update-reading!
+  [{{reading :reading} :form-params}]
+  (db/set-reading! reading)
+  (readingp 0))
+(defn update-reading!
+  [req] ; Change destructuring to just take the whole request map
+  (println "Incoming request for update-reading!:" (pr-str req)) ; Print the whole request map
+  (let [reading (get-in req [:form-params "reading"])] ; Explicitly get from :form-params
+    (println "Extracted reading:" reading)
+    (db/set-reading! reading)
+    (readingp 0)))

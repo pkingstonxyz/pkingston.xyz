@@ -64,6 +64,9 @@
                                     {:status 200
                                      :content-type "text/html"
                                      :body adminp/adminp})}}]
+        ["/reading" {:middleware [auth/authen-middleware auth/author-middleware]
+                     :get adminp/readingp
+                     :post adminp/update-reading!}]
         ["/blog" 
          ["" {:middleware [auth/authen-middleware auth/author-middleware]
               :get {:handler (fn [_]
