@@ -1,7 +1,9 @@
 (ns pkingstonxyz.pages.homep
-  (:require [hiccup.page :as h]))
+  (:require [hiccup.page :as h]
+            [hiccup2.core :as h2]
+            [pkingstonxyz.pages.topscroll :as topscroll]))
 
-(def homep
+(defn homep []
   (h/html5
     [:head
      [:title "Home"]
@@ -22,6 +24,7 @@
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
      [:meta {:charset "utf-8"}]]
     [:body
+     (h2/raw (topscroll/topelement))
      [:main
       [:section.snap
        [:div

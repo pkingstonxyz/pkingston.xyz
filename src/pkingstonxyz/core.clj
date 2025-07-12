@@ -31,7 +31,7 @@
        ["/" {:get {:handler (fn [_] 
                               {:status 200 
                                :content-type "text/html" 
-                               :body homep/homep})}}]
+                               :body (homep/homep)})}}]
        ["/blog" 
         [""
          {:get {:handler (fn [{{tags "tag"} :query-params}]

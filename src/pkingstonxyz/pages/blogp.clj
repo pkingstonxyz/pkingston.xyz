@@ -1,8 +1,8 @@
 (ns pkingstonxyz.pages.blogp
   (:require [hiccup.page :as h]
-            [hiccup.core :as hc]
-            [hiccup.util :as hu]
+            [hiccup2.core :as hc]
             [pkingstonxyz.db :as db]
+            [pkingstonxyz.pages.topscroll :as topscroll]
             [markdown.core :as md]))
 
 
@@ -35,9 +35,9 @@
   [:a {:href (str "/blog/" (:slug post))}
    [:article.postcard
     [:h3 (str (:title post))]
-    [:p (str "Posted: " (.format (java.text.SimpleDateFormat. "dd/MM/yyyy") (:date post)))]]])
+    [:p (str "Posted: " (.format (java.text.SimpleDateFormat. "dd/MM/yyyy") (:date post)))]
+    [:p (str "Tags: " (apply str (interpose ", " (:tags post))))]]])
 
-(apply db/get-blog-headings-by-tag (flatten ["travel"]))
 (defn _filteredpostlist [tags]
   (let [taglist (filter identity (flatten [tags]))]
     [:section#postlist
@@ -56,11 +56,11 @@
        [:p "No posts found!"])]))
 
 (defn filteredpostlist [tags]
-  (hc/html
-    (_filteredpostlist tags)))
+  (str (hc/html
+    (_filteredpostlist tags))))
 
 (defn blogp [tags]
-  (h/html5
+  (str (h/html5
     [:head
      [:title "Blog"]
      [:link {:rel "stylesheet" :href "/css/base.css"}]
@@ -69,6 +69,7 @@
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
      [:meta {:charset "utf-8"}]]
     [:body
+     (topscroll/topelement)
      [:main
       [:header.header
        [:h1 [:a {:href "/"} "Patrick's "] [:span.gradient "Blog"]]]
@@ -79,11 +80,11 @@
      [:footer.footer
       [:p (str "© " (currentyear) " Patrick Kingston")]]
      [:script {:src "/js/home.js"}]
-     ]))
+     ])))
 
 (defn blogpage 
   [{:keys [title date content]}]
-  (h/html5 
+  (str (h/html5 
     [:head
      [:title title]
      [:link
@@ -108,6 +109,7 @@
      [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/clojure.min.js"}]
      [:script "hljs.highlightAll();"]]
     [:body
+     (topscroll/topelement)
      [:header [:a {:href "/"}
                "Patrick's "] [:span.gradient "Blog"]]
      [:main
@@ -117,7 +119,7 @@
        [:hr]
        (md/md-to-html-string content)]]
      [:footer "© " (currentyear) " Patrick Kingston"]
-     [:script {:src "/js/home.js"}]]))
+     [:script {:src "/js/home.js"}]])))
 
 (defn blogpost [slug]
   (let [post (db/get-blog-post-by-slug slug)]

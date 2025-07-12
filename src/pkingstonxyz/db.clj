@@ -10,7 +10,9 @@
              :tags    {:db/cardinality :db.cardinality/many
                        :db/valueType   :db.type/string}
              :type    {:db/valueType   :db.type/string}
-             :public  {:db/valueType   :db.type/boolean}})
+             :public  {:db/valueType   :db.type/boolean}
+             :singleton-id {:db/unique :db.unique/identity
+                            :db/valueType :db.type/keyword}})
 
 (def blogposts (dlv/get-conn "data/blog" schema))
 
@@ -84,13 +86,10 @@ poggies."
 
 (defn get-all-blog-headings
   []
-  (dlv/q '[:find ?title ?slug ?date
-           :keys title slug date
-           :where [?e :title ?title]
-                  [?e :slug ?slug]
-                  [?e :date ?date]
-                  [?e :type "blog"]
-                  [?e :public true]] (dlv/db blogposts)))
+  (flatten (dlv/q '[:find (pull ?e [:title :slug :date :tags])
+           :where [?e :type "blog"]
+                  [?e :public true]]
+         (dlv/db blogposts))))
 
 (defn get-all-blog-headings-admin
   []
@@ -168,7 +167,7 @@ poggies."
 (defn yyyy-mm-dd [date]
   (let [s (java.text.SimpleDateFormat. "yyyy-MM-dd")]
     (.parse s date)))
-(def schema {:slug    {:db/unique :db.unique/identity
+#_(def schema {:slug    {:db/unique :db.unique/identity
                        :db/valueType :db.type/string}
              :title   {:db/valueType :db.type/string}
              :date    {:db/valueType :db.type/instant}
@@ -176,7 +175,10 @@ poggies."
              :tags    {:db/cardinality :db.cardinality/many
                        :db/valueType :db.type/string}
              :type    {:db/valueType :db.type/string}
-             :public  {:db/valueType :db.type/boolean}})
+             :public  {:db/valueType :db.type/boolean}
+             :reading-value {:db/valueType :db.type/string}
+:singleton-id {:db/unique :db.unique/identity
+                :db/valueType :db.type/keyword}})
 (comment
   (require '[next.jdbc :as jdbc])
   (def db {:dbtype "sqlite" :dbname "db.sqlite3"})
@@ -250,3 +252,27 @@ poggies."
     (< 0 (count (first (dlv/q '[:find ?e
                              :in $ ?slug
                              :where [?e :slug ?slug]] (dlv/db blogposts) slug))))))
+
+(defn get-reading []
+  (let [val (dlv/q '[:find ?val .
+                     :where 
+                     [?e :singleton-id :reading]
+                     [?e :reading-value ?val]]
+                   (dlv/db blogposts))]
+    (or (some-> val str) "")))
+
+(defn set-reading! [s]
+  (let [existing-id (first
+                     (dlv/q '[:find ?e .
+                              :where [?e :singleton-id :reading]]
+                            (dlv/db blogposts)))]
+    (if existing-id
+      ;; update existing
+      (dlv/transact! blogposts
+                     [{:db/id existing-id
+                       :reading-value s}])
+      ;; insert new
+      (dlv/transact! blogposts
+                     [{:singleton-id :reading
+                       :reading-value s}]))))
+
