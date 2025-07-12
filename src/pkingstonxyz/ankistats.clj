@@ -5,8 +5,10 @@
            [java.time.temporal ChronoUnit]))
 
 ;; Update this path to match your real Anki collection path
+(def db-path "/Users/pkingston/Library/Application Support/Anki2/User 1/collection.anki2")
 (def db-spec {:dbtype "sqlite"
-              :dbname "/Users/pkingston/Library/Application Support/Anki2/User 1/collection.anki2"})
+              :dbname (str "file:" db-path "?mode=ro")
+              :connection-uri? true})
 
 (defn current-time-millis []
   (-> (Instant/now)
