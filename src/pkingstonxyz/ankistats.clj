@@ -2,7 +2,7 @@
   (:require [next.jdbc :as jdbc]
             [clojure.string]
             [clojure.java.io :as io])
-  (:import [java.time Instant Duration ZoneId ZonedDateTime]
+  (:import [java.time Instant Duration]
            [java.time.temporal ChronoUnit]))
 
 ;; Update this path to match your real Anki collection path
@@ -51,21 +51,3 @@
         normalized (map #(first (clojure.string/split %1 #"\u001F")) decklist)
         data (frequencies normalized)]
     data)) 
-
-(defn decode-revlog-id [revlog-id]
-  (let [instant (Instant/ofEpochMilli revlog-id)
-        local-time (ZonedDateTime/ofInstant instant (ZoneId/systemDefault))
-        utc-time   (ZonedDateTime/ofInstant instant (ZoneId/of "UTC"))]
-    {:epoch-millis revlog-id
-     :instant instant
-     :utc          (str utc-time)
-     :local        (str local-time)}))
-
-(defn get-latest-review-time []
-  (let [ds (jdbc/get-datasource db-spec)
-        result (jdbc/execute-one! ds ["SELECT id FROM revlog ORDER BY id DESC LIMIT 1"])
-        revlog-id (:revlog/id result)] ;; or just (:id result) if no column aliasing
-    (decode-revlog-id revlog-id)))
-
-;; Run it:
-(get-latest-review-time)
