@@ -68,7 +68,7 @@ p {
   right: 0;
   height: 50px;
   background: var(--backdrop); /* Slightly transparent so content shows through */
-  color: white;
+  color: var(--text-color);
   display: flex;
   align-items: center;
   padding: 0 1rem;
@@ -109,7 +109,7 @@ p {
 #toggleHideBtn {
   background: transparent;
   border: none;
-  color: white;
+  color: var(--text-color);
   cursor: pointer;
   font-size: 1rem;
 }
@@ -119,8 +119,8 @@ p {
   top: 0;
   right: 2%;
   transform: translateX(-50%);
-  background: rgba(51, 51, 51, 0.9);
-  color: white;
+  background: var(--backdrop);
+  color: var(--text-color);
   padding: 0.25rem 0.5rem;
   border-radius: 0 0 5px 5px;
   cursor: pointer;
