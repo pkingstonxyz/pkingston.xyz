@@ -70,8 +70,8 @@
             [:span.emoji.small "&#x1F1EC;&#x1F1F7;"]
             [:span.emoji.small "🧭"]
             [:span.emoji.small "🚃"]]]]
-         [:div {:style "margin-left: 10px; width: 20em;"}
-          [:p {:style "font-size: 24px;"}
+         [:div {:style "margin-left: 10px; width: 10em;"}
+          [:p {:style "font-size: 16px;"}
            "Hey welcome to my site. I'm a dev on the Ansible team and you can see my code on github by clicking " 
            [:u [:a {:href "https://github.com/pkingstonxyz"
                :rel "me"}
