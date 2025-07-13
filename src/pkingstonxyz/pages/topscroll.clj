@@ -18,7 +18,7 @@
         [:div#topMenu
          [:div.menu-container
           [:div.menu-items
-           [:div [:p "Today's Flashcard Reviews:"]]
+           [:div [:p "Flashcards in the last 72 hrs:"]]
            (for [item ankidata]
              [:div {:style (str "color: " (nth colors (second item)) ";")}
               [:p
@@ -34,7 +34,7 @@
            [:div [:p "|"]]
 
            ;Duplicate starts here
-           [:div [:p "Today's Flashcard Reviews:"]]
+           [:div [:p "Flashcards in the last 72 hrs:"]]
            (for [item ankidata]
              [:div {:style (str "color: " (nth colors (second item)) ";")}
               [:p

@@ -31,7 +31,7 @@
 
 (defn time-24h-ago []
   (-> (Instant/now)
-      (.minus 24 ChronoUnit/HOURS)
+      (.minus 72 ChronoUnit/HOURS)
       (.toEpochMilli)))
 
 (defn reviews-last-24h []
@@ -50,4 +50,6 @@
         decklist (map :decks/deck_name reviews)
         normalized (map #(first (clojure.string/split %1 #"\u001F")) decklist)
         data (frequencies normalized)]
-    data)) 
+    data))
+
+(get-study-data)
