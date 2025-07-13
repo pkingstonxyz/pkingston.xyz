@@ -1,18 +1,16 @@
 (ns pkingstonxyz.pages.topscroll
 
   (:require [pkingstonxyz.ankistats :as ankistats]
+            [pkingstonxyz.myanimelist :as myanimelist]
             [pkingstonxyz.db :as db]
             [hiccup2.core :as h]))
 
 (def colors (cycle ["var(--king)" "var(--queen)" "var(--rook)" "var(--bishop)" "var(--knight)" "var(--pawn)"]))
 
-(for [item (sort-by second > (ankistats/get-study-data))]
-  [:div {:style (str "color: " (nth colors (second item)) ";")}
-   [:p
-    (first item)]])
 
 (defn topelement []
-  (let [ankidata (sort-by second > (ankistats/get-study-data))]
+  (let [ankidata (sort-by second > (ankistats/get-study-data))
+        recentmanga (myanimelist/get-recent-manga)]
     (str 
       (h/html
         [:div#topMenu
@@ -32,6 +30,8 @@
            [:div [:p "|"]]
            [:div [:p "Currently Reading: " (db/get-reading)]]
            [:div [:p "|"]]
+           [:div [:p "Recent Manga: " [:a {:href (:link recentmanga) :style "color: var(--queen);"} (:title recentmanga)]]]
+           [:div [:p "|"]]
 
            ;Duplicate starts here
            [:div [:p "Flashcards in the last 72 hrs:"]]
@@ -47,6 +47,8 @@
                                      " feed"]]]
            [:div [:p "|"]]
            [:div [:p "Currently Reading: " (db/get-reading)]]
+           [:div [:p "|"]]
+           [:div [:p "Recent Manga: " [:a {:href (:link recentmanga) :style "color: var(--queen);"} (:work recentmanga)]]]
            [:div [:p "|"]]
            ]]
          [:button#toggleHideBtn "Hide ▲"]]

@@ -13,7 +13,8 @@
                  [com.github.seancorfield/next.jdbc "1.3.874"]
                  [org.xerial/sqlite-jdbc  "3.39.2.1"]
                  [buddy "2.0.0"]
-                 [org.clojure/data.json "2.5.1"]]
+                 [org.clojure/data.json "2.5.1"]
+                 [org.clojure/data.xml "0.0.8"]]
   :main ^:skip-aot pkingstonxyz.core
   :target-path "target/%s"
   :jvm-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED"
