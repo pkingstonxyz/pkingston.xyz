@@ -25,7 +25,8 @@
   (let [{:keys [last-copied]} @cache-state]
     (when (cache-expired? last-copied)
       (println "Cache expired — copying Anki DB...")
-      (io/delete-file (io/file copypath))
+      (when (io/file copypath)
+      (io/delete-file (io/file copypath)))
       (io/copy (io/file db-path) (io/file copypath))
       (swap! cache-state assoc :last-copied (now)))))
 
