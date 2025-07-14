@@ -19,7 +19,7 @@
 
 (defn cache-expired? [last-copied]
   (or (nil? last-copied)
-      (> (.toMinutes (Duration/between last-copied (now))) 15)))
+      (> (.toMinutes (Duration/between last-copied (now))) 60)))
 
 (defn ensure-cached []
   (let [{:keys [last-copied]} @cache-state]
