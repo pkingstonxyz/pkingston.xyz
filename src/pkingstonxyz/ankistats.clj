@@ -9,7 +9,7 @@
 (def copypath "/tmp/ankidb.anki2")
 (def db-path "/Users/pkingston/Library/Application Support/Anki2/User 1/collection.anki2")
 (def db-spec {:dbtype "sqlite"
-              :dbname (str "file:" db-path "?mode=ro&nolock")
+              :dbname (str "file:" copypath "?mode=ro&nolock")
               :connection-uri? true})
 
 (defonce cache-state
@@ -23,10 +23,15 @@
 
 (defn ensure-cached []
   (let [{:keys [last-copied]} @cache-state
+        shmpath (str copypath "-shm")
         walpath (str db-path "-wal")
         walcopypath (str copypath "-wal")]
     (when (cache-expired? last-copied)
       (println "Cache expired — copying Anki DB...")
+      (try
+        (when (io/file shmpath)
+          (io/delete-file (io/file shmpath)))
+        (catch Exception e (str "Bruh the file didn't delete: " e)))
       (try
         (when (io/file copypath)
           (io/delete-file (io/file copypath)))
