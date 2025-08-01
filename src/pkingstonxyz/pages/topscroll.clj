@@ -30,9 +30,13 @@
            [:div [:p "|"]]
            [:div [:p "Currently Reading: " (db/get-reading)]]
            [:div [:p "|"]]
-           [:div [:p "Recent Manga: " [:a {:href (:link recentmanga) :style (if (.contains (:title recentmanga) "Manga")
-                                                                              "color: var(--queen);"
-                                                                              "color: var(--king);")} (:title recentmanga)]]]
+           [:div [:p "Recent Manga: " [:a {:href (:link recentmanga) 
+                                           :style (if (.contains (:title recentmanga) "Manga")
+                                                    "color: var(--queen);"
+                                                    "color: var(--king);")
+                                           :target "_blank"
+                                           :rel "noopener noreferrer"} 
+                                       (:title recentmanga)]]]
            [:div [:p "|"]]
 
            ;Duplicate starts here
@@ -50,9 +54,13 @@
            [:div [:p "|"]]
            [:div [:p "Currently Reading: " (db/get-reading)]]
            [:div [:p "|"]]
-           [:div [:p "Recent Manga: " [:a {:href (:link recentmanga) :style (if (.contains (:title recentmanga) "Manga")
-                                                                              "color: var(--queen);"
-                                                                              "color: var(--king);")} (:title recentmanga)]]]
+           [:div [:p "Recent Manga: " [:a {:href (:link recentmanga) 
+                                           :style (if (.contains (:title recentmanga) "Manga")
+                                                    "color: var(--queen);"
+                                                    "color: var(--king);")
+                                           :target "_blank"
+                                           :rel "noopener noreferrer"} 
+                                       (:title recentmanga)]]]
            [:div [:p "|"]]
            ]]
          [:button#toggleHideBtn "Hide ▲"]]
