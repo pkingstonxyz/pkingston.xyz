@@ -22,14 +22,25 @@
       (> (.toMinutes (Duration/between last-copied (now))) 60)))
 
 (defn ensure-cached []
-  (let [{:keys [last-copied]} @cache-state]
+  (let [{:keys [last-copied]} @cache-state
+        walpath (str db-path "-wal")
+        walcopypath (str copypath "-wal")]
     (when (cache-expired? last-copied)
       (println "Cache expired — copying Anki DB...")
       (try
-      (when (io/file copypath)
-        (io/delete-file (io/file copypath)))
-      (catch Exception e (str "Bruh the file didn't delete: " e)))
-      (io/copy (io/file db-path) (io/file copypath))
+        (when (io/file copypath)
+          (io/delete-file (io/file copypath)))
+        (catch Exception e (str "Bruh the file didn't delete: " e)))
+      (try
+        (when (io/file walcopypath)
+          (io/delete-file (io/file walcopypath)))
+        (catch Exception e (str "Bruh the file didn't delete: " e)))
+      (try
+        (io/copy (io/file db-path) (io/file copypath))
+        (catch Exception e (str "Bruh the file didn't copy: " e)))
+      (try
+        (io/copy (io/file walpath) (io/file walcopypath))
+        (catch Exception e (str "Bruh the file didn't copy: " e)))
       (swap! cache-state assoc :last-copied (now)))))
 
 (defn time-24h-ago []
