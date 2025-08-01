@@ -9,7 +9,7 @@
 (def copypath "/tmp/ankidb.anki2")
 (def db-path "/Users/pkingston/Library/Application Support/Anki2/User 1/collection.anki2")
 (def db-spec {:dbtype "sqlite"
-              :dbname (str "file:" copypath "?mode=ro")
+              :dbname (str "file:" db-path "?mode=ro&nolock")
               :connection-uri? true})
 
 (defonce cache-state
