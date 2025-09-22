@@ -52,13 +52,16 @@
 (defn ensure-cached []
   (when (cache-expired? (:last-copied @cache-state))
     (try
-      (sh/sh "systemctl" "stop" "ankisync")
+      (let [output (sh/sh "systemctl" "stop" "ankisync")]
+        (println output))
       (catch Exception e (str "Failed to stop ankisync due to: " e)))
     (try
-      (sh/sh "sqlite3" db-path (str "\".backup\" '" copypath "'"))
+      (let [output (sh/sh "sqlite3" db-path (str "\".backup\" '" copypath "'"))]
+        (println output))
       (catch Exception e (str "Failed to backup server due to:" e)))
     (try
-      (sh/sh "systemctl" "start" "ankisync")
+      (let [output (sh/sh "systemctl" "start" "ankisync")]
+        (println output))
       (catch Exception e (str "Failed to start ankisync due to: " e)))
     (swap! cache-state assoc :last-copied (now))))
 
