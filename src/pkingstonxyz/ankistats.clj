@@ -1,7 +1,8 @@
 (ns pkingstonxyz.ankistats
   (:require [next.jdbc :as jdbc]
             [clojure.string]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [clojure.java.shell :as sh])
   (:import [java.time Instant Duration]
            [java.time.temporal ChronoUnit]))
 
@@ -21,7 +22,7 @@
   (or (nil? last-copied)
       (> (.toMinutes (Duration/between last-copied (now))) 60)))
 
-(defn ensure-cached []
+#_(defn ensure-cached []
   (let [{:keys [last-copied]} @cache-state
         shmpath (str copypath "-shm")
         walpath (str db-path "-wal")
@@ -47,6 +48,19 @@
         (io/copy (io/file walpath) (io/file walcopypath))
         (catch Exception e (str "Bruh the file didn't copy: " e)))
       (swap! cache-state assoc :last-copied (now)))))
+
+(defn ensure-cached []
+  (when (cache-expired? (:last-copied @cache-state))
+    (try
+      (sh/sh "systemctl" "stop" "ankisync")
+      (catch Exception e (str "Failed to stop ankisync due to: " e)))
+    (try
+      (sh/sh "sqlite3" db-path (str "\".backup\" '" copypath "'"))
+      (catch Exception e (str "Failed to backup server due to:" e)))
+    (try
+      (sh/sh "systemctl" "start" "ankisync")
+      (catch Exception e (str "Failed to start ankisync due to: " e)))
+    (swap! cache-state assoc :last-copied (now))))
 
 (defn time-24h-ago []
   (-> (Instant/now)
