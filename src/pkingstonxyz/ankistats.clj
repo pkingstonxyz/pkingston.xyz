@@ -56,7 +56,7 @@
         (println output))
       (catch Exception e (str "Failed to stop ankisync due to: " e)))
     (try
-      (let [output (sh/sh "sqlite3" db-path (str "\".backup\" '" copypath "'"))]
+      (let [output (sh/sh "sudo" "sqlite3" db-path (str "\".backup\" '" copypath "'"))]
         (println output))
       (catch Exception e (str "Failed to backup server due to:" e)))
     (try
