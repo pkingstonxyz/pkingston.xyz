@@ -3,6 +3,7 @@
             [hiccup2.core :as hc]
             [pkingstonxyz.db :as db]
             [pkingstonxyz.pages.topscroll :as topscroll]
+            [pkingstonxyz.pages.favicon :as favicon]
             [markdown.core :as md]))
 
 
@@ -63,6 +64,7 @@
   (str (h/html5
     [:head
      [:title "Blog"]
+     favicon/favicon
      [:link {:rel "stylesheet" :href "/css/base.css"}]
      [:link {:rel "stylesheet" :href "/css/blog.css"}]
      [:script {:src "https://unpkg.com/htmx.org@1.9.2"}]
@@ -87,18 +89,7 @@
   (str (h/html5 
     [:head
      [:title title]
-     [:link
- {:rel "icon",
-  :type "image/png", 
-  :href "/favicon-96x96.png", 
-  :sizes "96x96"}]
-[:link {:rel "icon", :type "image/svg+xml", :href "/favicon.svg"}]
-[:link {:rel "shortcut icon", :href "/favicon.ico"}]
-[:link
- {:rel "apple-touch-icon",
-  :sizes "180x180", 
-  :href "/apple-touch-icon.png"}]
-[:link {:rel "manifest", :href "/site.webmanifest"}]
+     favicon/favicon
      [:link {:rel "stylesheet" :href "/css/base.css"}]
      [:link {:rel "stylesheet" :href "/css/blogpost.css"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]

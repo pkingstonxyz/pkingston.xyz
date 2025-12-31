@@ -1,24 +1,14 @@
 (ns pkingstonxyz.pages.homep
   (:require [hiccup.page :as h]
             [hiccup2.core :as h2]
-            [pkingstonxyz.pages.topscroll :as topscroll]))
+            [pkingstonxyz.pages.topscroll :as topscroll]
+            [pkingstonxyz.pages.favicon :as favicon]))
 
 (defn homep []
   (h/html5
     [:head
      [:title "Home"]
-     [:link
- {:rel "icon",
-  :type "image/png", 
-  :href "/favicon-96x96.png", 
-  :sizes "96x96"}]
-[:link {:rel "icon", :type "image/svg+xml", :href "/favicon.svg"}]
-[:link {:rel "shortcut icon", :href "/favicon.ico"}]
-[:link
- {:rel "apple-touch-icon",
-  :sizes "180x180", 
-  :href "/apple-touch-icon.png"}]
-[:link {:rel "manifest", :href "/site.webmanifest"}]
+     favicon/favicon
      [:link {:rel "stylesheet" :href "/css/home.css"}]
      [:link {:rel "stylesheet" :href "/css/base.css"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
