@@ -39,10 +39,18 @@
              :hx-trigger "submit"}
       [:label "Title"]
       [:input {:type "text" :name "title"}]
+      [:br]
       [:label "Public"]
       [:input {:type "checkbox" :name "public"}]
+      [:br]
       [:label "Content"]
       [:textarea {:name "content"}]
+      [:br]
+      [:label "Tags"]
+      [:input {:type "text" :name "tag0"}]
+      [:input {:type "text" :name "tag1"}]
+      [:input {:type "text" :name "tag2"}]
+      [:br]
       [:input {:type "submit"}]]]
     (for [post (db/get-all-blog-headings-admin)]
       [:div {:hx-get (str "/admin/blog/" (:slug post))
@@ -53,7 +61,12 @@
 (defn managecomp
   [slug]
   (hc/html
-  (let [post (db/get-blog-post-by-slug-admin slug)]
+  (let [post (db/get-blog-post-by-slug-admin slug)
+        taken (take 3 (:tags post))
+        count-taken (count taken)
+        taglist (if (< count-taken 3)
+          (concat taken (repeat (- 3 count-taken) ""))
+          taken)]
     [:div {:id (str "id" slug)}
      [:h1 "Edit"]
      [:form {:hx-put (str "/admin/blog/" slug)
@@ -61,10 +74,17 @@
              :hx-trigger "submit"} 
       [:label "Title"]
       [:input {:type "text" :name "title" :value (:title post)}]
+      [:br]
       [:label "Public"]
       [:input {:type "checkbox" :name "public" :checked (str (:public post))}]
+      [:br]
       [:label "Content"]
       [:textarea {:name "content"} (:content post)]
+      [:br]
+      [:label "Tags"]
+      (for [tag (map-indexed (fn [idx itm] [idx itm]) taglist)]
+        [:input {:type "text" :name (str "tag" (first tag)) :value (second tag)}])
+      [:br]
       [:input {:type "submit"}]]
      [:h1 "Delete"]
      [:form {:hx-delete (str "/admin/blog/" slug)
@@ -75,9 +95,9 @@
       [:input {:type "submit"}]]])))
 
 (defn edit-post!
-  [{{title "title" content "content" public "public"} :params
+  [{{title "title" content "content" public "public" tag0 "tag0" tag1 "tag1" tag2 "tag2"} :params
     {slug :slug} :path-params}]
-  (let [edit-result (db/edit-blog-post! slug title content public)]
+  (let [edit-result (db/edit-blog-post! slug title content public (vec (remove #(= % "") [tag0 tag1 tag2])))]
     (if edit-result
       {:status 200
        :content-type "text/html"
@@ -103,12 +123,12 @@
      :body "POST NOT DELETED"}))
 
 (defn make-post!
-  [{{title "title" content "content" public "public"} :params}]
+  [{{title "title" content "content" public "public" tag0 "tag0" tag1 "tag1" tag2 "tag2"} :params}]
   (println "MAKING")
   (println title)
   (println content)
   (println public)
-  (let [make-result (db/make-blog-post! title content public)]
+  (let [make-result (db/make-blog-post! title content public (remove #(= "" %) [tag0 tag1 tag2]))]
     (if make-result
       {:status 200
        :content-type "text/html"

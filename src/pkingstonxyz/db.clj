@@ -16,65 +16,7 @@
 
 (def blogposts (dlv/get-conn "data/blog" schema))
 
-(comment
-  (dlv/transact!
-   blogposts
-   [{:slug "fifth-post"
-     :title "Fifth Post"
-     :date (new java.util.Date)
-     :content 
-"# Some MORE markdown
 
-Do paragraphs work?
-
-Please??
-
-## Here's a subheading
-
-poggies.
-poggies."
-     :tags ["christianity" "programming" "travel"]
-     :type "blog"
-     :public true}])
-  (dlv/q '[:find [?tags ...] :where [?e :tags ?tags] [?e :slug "fifth-post"]] (dlv/db blogposts))
-
-(dlv/transact! 
- blogposts
- [{:slug "first-post"
-   :title "First Post"
-   :date (new java.util.Date)
-   :content "#Some markdown
-
-            content. Here is a sentence."
-   :tags ["foo" "bar"]
-   :type "blog"
-   :public true}
-  {:slug "second-post"
-   :title "Second Post"
-   :date (new java.util.Date)
-   :content "#Some markdown
-
-            content. Here is a sentence."
-   :tags ["foo" "baz"]
-   :type "blog"
-   :public true}
-  {:slug "third-post"
-   :title "Third Post"
-   :date (new java.util.Date)
-   :content "#Some markdown
-
-            content. Here is a sentence."
-   :tags ["bar" "baz"]
-   :type "blog"
-   :public true}])
-
-(dlv/q '[:find ?slug
-         :in $ ?tag1 ?tag2 ?tag3
-         :where 
-         [?e :slug ?slug]
-         [?e :tags ?tag1]
-         [?e :tags ?tag2]]
-       (dlv/db blogposts) "foo" "bar" nil))
 
 (defn get-blog-tags []
   (let [q (dlv/q '[:find [?tags ...]
@@ -151,18 +93,12 @@ poggies."
            ] (dlv/db blogposts) slug)))
 
 (defn get-blog-post-by-slug-admin [slug]
-  (first
-  (dlv/q '[:find ?title ?date ?content ?public
-           :keys title date content public
+  (dlv/q '[:find (pull ?e [:title :date :content :public :tags]) .
            :in $ ?slug
-           :where 
-           [?e :slug ?slug]
-           [?e :title ?title]
-           [?e :date ?date]
-           [?e :content ?content]
-           [?e :public ?public]
-           [?e :type "blog"]
-           ] (dlv/db blogposts) slug)))
+           :where [?e :slug ?slug]
+                  [?e :type "blog"]] 
+         (dlv/db blogposts) slug))
+
 
 (defn yyyy-mm-dd [date]
   (let [s (java.text.SimpleDateFormat. "yyyy-MM-dd")]
@@ -205,17 +141,35 @@ poggies."
                  (= title "Learning Plans") ["project" "learning"]
                  ))
        :public true}))))
+
 (defn edit-blog-post! 
-  [slug title content public]
-  (let [prev (first (flatten (dlv/q '[:find (dlv/pull ?e [*])
+  [slug title content public tags]
+  (let [db (dlv/db blogposts)
+        existing-post (ffirst (dlv/q '[:find (pull ?e [:db/id :tags])
+                       :in $ ?slug
+                       :where [?e :slug ?slug]]
+                     db slug))]
+    (when existing-post
+      (let [eid (:db/id existing-post)
+            old-tags (:tags existing-post)
+            retract-tx (map (fn [t] [:db/retract eid :tags t]) old-tags)
+            update-tx [{:db/id eid
+                        :title title
+                        :content content
+                        :public (= public "on")
+                        :tags tags}]]
+        (dlv/transact! blogposts (concat retract-tx update-tx))))))
+
+  #_(let [prev (first (flatten (dlv/q '[:find (dlv/pull ?e [*])
                                       :in $ ?slug
                                       :where [?e :slug ?slug]] (dlv/db blogposts) slug)))
         nextp (assoc prev :title title 
                      :content content 
+                     :tags tags
                      :public (= public "on"))]
     (dlv/transact!
      blogposts
-     [nextp])))
+     [nextp]))
 
 (defn delete-blog-post!
   [slug]
@@ -235,10 +189,8 @@ poggies."
 
 
 (defn make-blog-post!
-  [titlesub content public]
-  (let [splits (sops/split titlesub #"\$")
-        title (first splits)
-        slug (-> title (sops/lower-case) (sops/replace #" " "-"))]
+  [title content public tags]
+  (let [slug (-> title (sops/lower-case) (sops/replace #" " "-"))]
     (println title)
     (dlv/transact!
      blogposts
@@ -247,7 +199,7 @@ poggies."
        :date (new java.util.Date)
        :content content
        :type "blog"
-       :tags (vec (take 3 (filter identity (rest splits))))
+       :tags tags
        :public (= public "on")}])
     (< 0 (count (first (dlv/q '[:find ?e
                              :in $ ?slug
@@ -275,3 +227,63 @@ poggies."
       (dlv/transact! blogposts
                      [{:singleton-id :reading
                        :reading-value s}]))))
+
+(comment
+  (dlv/transact!
+   blogposts
+   [{:slug "fifth-post"
+     :title "Fifth Post"
+     :date (new java.util.Date)
+     :content 
+"# Some MORE markdown
+
+Do paragraphs work?
+
+Please??
+
+## Here's a subheading
+
+poggies.
+poggies."
+     :tags ["christianity" "programming" "travel"]
+     :type "blog"
+     :public true}])
+  (dlv/q '[:find [?tags ...] :where [?e :tags ?tags] [?e :slug "fifth-post"]] (dlv/db blogposts))
+
+(dlv/transact! 
+ blogposts
+ [{:slug "first-post"
+   :title "First Post"
+   :date (new java.util.Date)
+   :content "#Some markdown
+
+            content. Here is a sentence."
+   :tags ["foo" "bar"]
+   :type "blog"
+   :public true}
+  {:slug "second-post"
+   :title "Second Post"
+   :date (new java.util.Date)
+   :content "#Some markdown
+
+            content. Here is a sentence."
+   :tags ["foo" "baz"]
+   :type "blog"
+   :public true}
+  {:slug "third-post"
+   :title "Third Post"
+   :date (new java.util.Date)
+   :content "#Some markdown
+
+            content. Here is a sentence."
+   :tags ["bar" "baz"]
+   :type "blog"
+   :public true}])
+
+(dlv/q '[:find ?slug
+         :in $ ?tag1 ?tag2 ?tag3
+         :where 
+         [?e :slug ?slug]
+         [?e :tags ?tag1]
+         [?e :tags ?tag2]]
+       (dlv/db blogposts) "foo" "bar" nil))
