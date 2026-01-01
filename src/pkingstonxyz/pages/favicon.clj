@@ -1,7 +1,8 @@
 (ns pkingstonxyz.pages.favicon)
 
 (def favicon
-  [[:link
+  (for [e [
+   [:link
     {:rel "icon",
      :type "image/png", 
      :href "/favicon-96x96.png", 
@@ -12,5 +13,6 @@
     {:rel "apple-touch-icon",
      :sizes "180x180", 
      :href "/apple-touch-icon.png"}]
-   [:link {:rel "manifest", :href "/site.webmanifest"}]])
+   [:link {:rel "manifest", :href "/site.webmanifest"}]]]
+    e))
 
